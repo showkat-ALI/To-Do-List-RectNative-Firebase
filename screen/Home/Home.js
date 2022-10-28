@@ -1,14 +1,53 @@
-import { StyleSheet, Text, View, FlatList } from "react-native";
-import React from "react";
+import { useState, useLayoutEffect } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 import NoteList from "./../../components/NoteList/NoteList";
+const renderAddlistIcon = (navigation) => {
+  return (
+    <TouchableOpacity onPress={() => navigation.navigate("CustomizeList", {})}>
+      <Text style={{ fontSize: 24, padding: 10 }}>+</Text>
+    </TouchableOpacity>
+  );
+};
+export default function Home({ navigation }) {
+  const [lists, setLists] = useState([{ title: "school" }]);
 
-export default function Home() {
+  const addItemTolists = (item) => {
+    lists.push(item);
+    setLists([...lists]);
+  };
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => renderAddlistIcon(navigation),
+    });
+  });
+  const removeTodoListItem = (index) => {
+    lists.splice(index, 1);
+    setLists([...lists]);
+  };
   return (
     <View style={styles.container}>
       <FlatList
-        data={[{ title: "school" }, { title: "Home" }, { title: "office" }]}
+        data={lists}
         renderItem={({ item: { title }, index }) => {
-          return <NoteList title={title}></NoteList>;
+          return (
+            <NoteList
+              onDelete={() => removeTodoListItem(index)}
+              title={title}
+              navigation={navigation}
+              onPress={() => {
+                navigation.navigate("Todolist", { title });
+              }}
+              onOptions={() => {
+                navigation.navigate("CustomizeList", { title });
+              }}
+            ></NoteList>
+          );
         }}
       />
     </View>

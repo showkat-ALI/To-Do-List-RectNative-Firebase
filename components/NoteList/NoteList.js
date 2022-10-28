@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 
-export default function NoteList({ title }) {
+export default function NoteList({ title, onPress, onDelete, onOptions }) {
   return (
     <TouchableOpacity
       style={{
@@ -18,7 +18,7 @@ export default function NoteList({ title }) {
         backgroundColor: "green",
         height: 100,
       }}
-      onPress={() => {}}
+      onPress={onPress}
     >
       <View>
         <Text style={{ color: "white" }}>{title}</Text>
@@ -33,14 +33,19 @@ export default function NoteList({ title }) {
       >
         <TouchableOpacity>
           <Ionicons
-            onPress={() => {}}
+            onPress={onOptions}
             name="settings-outline"
             size={25}
             color="white"
           ></Ionicons>
         </TouchableOpacity>
         <TouchableOpacity>
-          <Ionicons name={"trash-outline"} size={25} color="white"></Ionicons>
+          <Ionicons
+            onPress={onDelete}
+            name={"trash-outline"}
+            size={25}
+            color="white"
+          ></Ionicons>
         </TouchableOpacity>
       </View>
     </TouchableOpacity>
