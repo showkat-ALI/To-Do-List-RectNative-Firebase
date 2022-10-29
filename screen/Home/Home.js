@@ -7,9 +7,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 import NoteList from "./../../components/NoteList/NoteList";
-const renderAddlistIcon = (navigation) => {
+const renderAddlistIcon = (navigation, addItemTolists) => {
   return (
-    <TouchableOpacity onPress={() => navigation.navigate("CustomizeList", {})}>
+    <TouchableOpacity
+      onPress={() =>
+        navigation.navigate("CustomizeList", { saveChanges: addItemTolists })
+      }
+    >
       <Text style={{ fontSize: 24, padding: 10 }}>+</Text>
     </TouchableOpacity>
   );
@@ -23,11 +27,15 @@ export default function Home({ navigation }) {
   };
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: () => renderAddlistIcon(navigation),
+      headerRight: () => renderAddlistIcon(navigation, addItemTolists),
     });
   });
   const removeTodoListItem = (index) => {
     lists.splice(index, 1);
+    setLists([...lists]);
+  };
+  const updateListItem = (index, item) => {
+    lists[index] = item;
     setLists([...lists]);
   };
   return (
@@ -44,7 +52,10 @@ export default function Home({ navigation }) {
                 navigation.navigate("Todolist", { title });
               }}
               onOptions={() => {
-                navigation.navigate("CustomizeList", { title });
+                navigation.navigate("CustomizeList", {
+                  title,
+                  saveChanges: (item) => updateListItem(index, item),
+                });
               }}
             ></NoteList>
           );
