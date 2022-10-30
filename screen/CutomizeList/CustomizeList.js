@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
+import Button from "../../components/Button/Button";
 
 const CustomizeList = ({ navigation, route }) => {
   const [title, setEditTitle] = useState(route.params.title || "");
@@ -51,18 +52,21 @@ const CustomizeList = ({ navigation, route }) => {
         />
       </View>
       <View>
-        <TouchableOpacity
-          style={{
+        <Button
+          text={"Save Your New Task List Title"}
+          btnBg={{ backgroundColor: "red" }}
+          buttonStyle={{
             flex: 1,
             justifyContent: "center",
             alignItems: "center",
             borderRadius: 25,
             borderStyle: "solid",
             height: 60,
-            width: 250,
+            width: 300,
             padding: 10,
             backgroundColor: "black",
           }}
+          textStyle={{ color: "white", fontWeight: "bold" }}
           onPress={() => {
             if (title.length > 1) {
               route.params.saveChanges({ title });
@@ -71,11 +75,15 @@ const CustomizeList = ({ navigation, route }) => {
               setSureValid(false);
             }
           }}
+        />
+        {/* <TouchableOpacity
+          
+          
         >
-          <Text style={{ color: "white", fontWeight: "bold" }}>
+          <Text >
             Save Your New Task List Title
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </View>
   );

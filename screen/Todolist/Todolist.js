@@ -5,6 +5,7 @@ import {
   View,
   FlatList,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import React from "react";
 import ToDoListItem from "../../components/ToDoListItem/ToDoListItem";
@@ -20,9 +21,7 @@ const renderAddlistIcon = (addItem) => {
   );
 };
 export default function Todolist({ navigation }) {
-  const [todoItems, setTodoItems] = useState([
-    { text: "", isChecked: false, isNewTask: true },
-  ]);
+  const [todoItems, setTodoItems] = useState([]);
   const addItemTolists = (item) => {
     todoItems.push(item);
     setTodoItems([...todoItems]);

@@ -4,6 +4,8 @@ import {
   View,
   TouchableOpacity,
   TextInput,
+  Button,
+  Alert,
 } from "react-native";
 import { useState } from "react";
 import CheckBox from "../CheckBox/CheckBox";
@@ -44,9 +46,7 @@ export default function ToDoListItem({
         />
       </View>
       <View>
-        <TouchableOpacity onPress={onDelete}>
-          <Text style={{ color: "red" }}>X</Text>
-        </TouchableOpacity>
+        <Button onPress={onDelete} title={"X"} />
       </View>
     </View>
   );
